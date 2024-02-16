@@ -1,31 +1,34 @@
+import java.util.Stack;
+
 class Solution {
     boolean solution(String s) {
        boolean check = true;
-        int cnt = 0;
 
-        for (int i = 0; i < s.length(); i++)
-        {
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+
             if(s.charAt(i) == '(')
             {
-                cnt++;
+                stack.push(s.charAt(i));
             }
-            else if(s.charAt(i)==')')
+            else if(s.charAt(i) ==')')
             {
-                cnt--;
-            }
-
-            if(cnt<0)
-            {
-                check = false;
-                break;
+                if(stack.isEmpty())
+                {
+                    check = false;
+                    break;
+                }
+                else if(stack.peek()=='(')
+                {
+                    stack.pop();
+                }
             }
         }
-        
-        if(cnt != 0)
-        {
+        if (!(stack.isEmpty())) {
             check = false;
         }
-        
+
         return check;
     }
 }
